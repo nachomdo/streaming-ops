@@ -7,5 +7,17 @@ spec:
     spec:
       containers:
       - name: orders-service
-        image: cnfldemos/orders-service:sha-0ccce99 # 10.0.8
+        image: nachomdo/orders-service:10.0.8
+        startupProbe:
+          httpGet:
+            path: /v1/healthcheck
+            port: 8080
+          failureThreshold: 30
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /v1/healthcheck
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 3
 
